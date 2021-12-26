@@ -1,18 +1,11 @@
-#include <iostream>
-#include <fstream>
+/* NOTES
+
+ Bytes sum of headers = 54 bytes
+
+   NOTES */
+#include "bytemanip.h"
 
 using namespace std;
-
-int32_t getBytes(short byteNumber)
-{
-    int32_t value = 0;
-    char bytes[4];
-    for(int i = 0; i < byteNumber; i++)
-        value |= (int32_t)bytes[i] << i * 8;
-    return value;
-}
-
-
 
 int main()
 {
@@ -22,6 +15,9 @@ int main()
 
     if(bmp.get() != 'B' || bmp.get() != 'M')
         return 1;
+
+    u_int32_t fileByteSize = getBytes(4, bmp);
+    cout<<fileByteSize<<endl;
 
 
     cout<<"END\n";
