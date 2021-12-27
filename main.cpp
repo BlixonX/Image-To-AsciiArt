@@ -9,7 +9,10 @@ using namespace std;
 
 int main()
 {
-    ifstream bmp("sus.bmp");
+    string imageName;
+    cout<<"Type in the image name: ";
+    cin>>imageName;
+    ifstream bmp(imageName);
     ofstream output("output.txt");
 
     char yesOrNo;

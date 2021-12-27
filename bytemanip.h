@@ -96,6 +96,6 @@ char invertPixelColor(char pixel)
         case 'O':
             return '#';
         default:
-            return '8';
+            return '*';
     }
 }
