@@ -15,6 +15,8 @@ char resolvePixelBrightness(std::ifstream& file);
 
 char charFromBrightness(unsigned char brightness);
 
+char invertPixelColor(char pixel);
+
 //######################################
 
 int32_t getBytes(short byteNumber, std::ifstream& file)
@@ -78,5 +80,22 @@ char charFromBrightness(unsigned char brightness)
     else if (brightness >= 50)
         return 'O';
 
-    return '.';
+    return ' ';
+}
+
+char invertPixelColor(char pixel)
+{
+    switch (pixel)
+    {
+        case '@':
+            return ' ';
+        case ' ':
+            return '@';
+        case '#':
+            return 'O';
+        case 'O':
+            return '#';
+        default:
+            return '8';
+    }
 }

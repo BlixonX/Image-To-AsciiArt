@@ -9,8 +9,25 @@ using namespace std;
 
 int main()
 {
-    ifstream bmp("");
+    ifstream bmp("sus.bmp");
     ofstream output("output.txt");
+
+    char yesOrNo;
+    bool invert = false;
+    cout<<"Invert colors? [Y/n]"<<endl;
+    do
+    {
+        cin>>yesOrNo;
+        if(yesOrNo == 'Y' || yesOrNo == 'y')
+        {
+            invert = true;
+            break;
+        }
+        else if (yesOrNo == 'N' || yesOrNo == 'n')
+            break;
+
+    } while (true);
+
 
     //START OF BITMAP-FILE-HEADER
     //CHECKING IF THE FILE IS ACTUALLY BITMAP FILE
@@ -81,6 +98,11 @@ int main()
             image[height][widthIndex] = charFromBrightness(resolvePixelBrightness(bmp));
         skipBytes(padding, bmp); //padding skip
     }
+
+    if(invert)
+        for (int height = 0; height < pixelHeight; height++)
+            for (int widthIndex = 0; widthIndex < pixelWidth; widthIndex++)
+                image[height][widthIndex] = invertPixelColor(image[height][widthIndex]);
 
     for (int height = pixelHeight-1; height >= 0 ; height--)
     {
