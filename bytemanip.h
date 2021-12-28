@@ -11,7 +11,7 @@ int32_t get4Bytes(std::ifstream& file);
 
 void skipBytes(short byteNumber, std::ifstream& file);
 
-char resolvePixelBrightness(std::ifstream& file);
+char resolvePixelBrightness(std::ifstream& file, bool alpha);
 
 char charFromBrightness(unsigned char brightness);
 
@@ -50,7 +50,7 @@ void skipBytes(short byteNumber, std::ifstream& file)
         file.get();
 }
 
-char resolvePixelBrightness(std::ifstream& file)
+char resolvePixelBrightness(std::ifstream& file, bool alpha)
 {
     unsigned char brightest = file.get();
     unsigned char next = file.get();
@@ -65,6 +65,9 @@ char resolvePixelBrightness(std::ifstream& file)
     if(next > brightest) {
         brightest = next;
     }
+
+    if(alpha)
+        skipBytes(1, file);
 
     return brightest;
 }

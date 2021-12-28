@@ -79,10 +79,20 @@ int main()
     cout<< "imageSize: " << imageSize << endl;
     cout<<"\npixel offset minus read bytes: "<<pixelArrayOffset-54<<endl;
 
+    bool alpha = false;
+    if(colorDepth == 32)
+        alpha = true;
+
     for (int i = 0; i < pixelArrayOffset-54; i++)
         bmp.get();
 
-    char padding = ((pixelWidth * 3)%4);
+    char padding;
+
+    if(alpha)
+        padding = ((pixelWidth * 4)%4);
+    else
+        padding = ((pixelWidth * 3)%4);
+
     if(padding)
         padding = 4 - padding;
 
@@ -98,7 +108,7 @@ int main()
     for (int height = 0; height < pixelHeight; height++)
     {
         for (int widthIndex = 0; widthIndex < pixelWidth; widthIndex++)
-            image[height][widthIndex] = charFromBrightness(resolvePixelBrightness(bmp));
+            image[height][widthIndex] = charFromBrightness(resolvePixelBrightness(bmp, alpha));
         skipBytes(padding, bmp); //padding skip
     }
 
